@@ -9,3 +9,10 @@ export const object = {
 	isEmpty: (object: Record<string | number, any>) =>
 		Object.keys(object).length === 0 && object.constructor === Object,
 };
+
+export const string = {
+	base64: {
+		decode: (base64: string) => Buffer.from(base64, "base64").toString(),
+		encode: (string: string) => Buffer.from(string).toString("base64"),
+	},
+};
