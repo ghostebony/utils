@@ -19,3 +19,5 @@ export const string = {
 	replacer: (string: string, data: Record<string | number, string | number | boolean>) =>
 		string.replace(/\{(.*?)\}/g, ($1, $2) => ($2 in data ? data[$2].toString() : $1)),
 };
+
+export default { object, string };
