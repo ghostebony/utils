@@ -72,7 +72,7 @@ const http_main = async <Data, Error = unknown>(
 ) => {
 	if (!options.method) options.method = "GET";
 
-	if (!options.response) options.response = "none";
+	if (!options.response) options.response = "json";
 
 	if (options.params) {
 		const params = new URLSearchParams(object.filter(options.params, undefined)).toString();
