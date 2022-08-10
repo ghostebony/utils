@@ -16,4 +16,6 @@ export const string = {
 		encode: (string: string) => Buffer.from(string).toString("base64"),
 	},
 	classes: (...classes: Array<string | boolean | undefined>) => classes.filter(Boolean).join(" "),
+	replacer: (string: string, data: Record<string | number, string | number | boolean>) =>
+		string.replace(/\{(.*?)\}/g, ($1, $2) => ($2 in data ? data[$2].toString() : $1)),
 };
