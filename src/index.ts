@@ -120,6 +120,9 @@ const http_delete = <Data, Error = unknown>(endpoint: string, options?: Types.Re
 
 const http_head = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
 	http_main<Data, Error>(endpoint, { method: "HEAD", ...options });
+
+const http_get = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
+	http_main<Data, Error>(endpoint, { method: "GET", ...options });
 export const http = {
 	statusCode,
 	other: http_main,
@@ -127,6 +130,8 @@ export const http = {
 	DELETE: http_delete,
 	head: http_head,
 	HEAD: http_head,
+	get: http_get,
+	GET: http_get,
 };
 
 export const object = {
