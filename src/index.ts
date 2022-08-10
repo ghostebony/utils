@@ -129,6 +129,10 @@ const http_patch = <Data, Error = unknown>(endpoint: string, options?: Types.Req
 
 const http_post = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
 	http_main<Data, Error>(endpoint, { method: "POST", ...options });
+
+const http_put = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
+	http_main<Data, Error>(endpoint, { method: "PUT", ...options });
+
 export const http = {
 	statusCode,
 	other: http_main,
@@ -142,6 +146,8 @@ export const http = {
 	PATCH: http_patch,
 	post: http_post,
 	POST: http_post,
+	put: http_put,
+	PUT: http_put,
 };
 
 export const object = {
