@@ -15,4 +15,5 @@ export const string = {
 		decode: (base64: string) => Buffer.from(base64, "base64").toString(),
 		encode: (string: string) => Buffer.from(string).toString("base64"),
 	},
+	classes: (...classes: Array<string | boolean | undefined>) => classes.filter(Boolean).join(" "),
 };
