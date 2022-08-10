@@ -1,3 +1,5 @@
+import type * as Types from "./types";
+
 export enum statusCode {
 	CONTINUE = 100,
 	SWITCHING_PROTOCOLS = 101,
@@ -64,8 +66,57 @@ export enum statusCode {
 	NETWORK_AUTHENTICATION_REQUIRED = 511,
 }
 
+const http_main = async <Data, Error = unknown>(
+	endpoint: string,
+	options: Types.RequestOptions
+) => {
+	if (!options.method) options.method = "GET";
+
+	if (!options.response) options.response = "none";
+
+	if (options.params) {
+		const params = new URLSearchParams(object.filter(options.params, undefined)).toString();
+
+		if (!!params) {
+			endpoint = `${endpoint}?${params}`;
+		}
+	}
+
+	if (options.cookies)
+		options.headers = { ...options.headers, cookie: object.serialize(options.cookies) };
+
+	const response = await fetch(endpoint, {
+		method: options.method,
+		headers: {
+			accept: "application/json",
+			...options.headers,
+		},
+		body: typeof options.body === "object" ? JSON.stringify(options.body) : options.body,
+	});
+
+	const responseBody =
+		options.response !== "none" ? await response[options.response]() : response.body;
+
+	let data: Data | undefined;
+	let error: Error | undefined;
+
+	if (response.ok) {
+		data = responseBody;
+	} else {
+		error = responseBody;
+	}
+
+	return {
+		data,
+		error,
+		ok: response.ok,
+		status: response.status,
+		headers: response.headers,
+	};
+};
 export const http = {
 	statusCode,
+	other: http_main,
 };
 
 export const object = {
