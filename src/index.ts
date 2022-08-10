@@ -6,4 +6,6 @@ export const object = {
 			}
 			return obj;
 		}, {}),
+	isEmpty: (object: Record<string | number, any>) =>
+		Object.keys(object).length === 0 && object.constructor === Object,
 };
