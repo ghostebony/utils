@@ -114,9 +114,14 @@ const http_main = async <Data, Error = unknown>(
 		headers: response.headers,
 	};
 };
+
+const http_delete = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
+	http_main<Data, Error>(endpoint, { method: "DELETE", ...options });
 export const http = {
 	statusCode,
 	other: http_main,
+	delete: http_delete,
+	DELETE: http_delete,
 };
 
 export const object = {
