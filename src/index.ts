@@ -135,7 +135,8 @@ const http_put = <Data, Error = unknown>(endpoint: string, options?: Types.Reque
 
 export const http = {
 	statusCode,
-	other: http_main,
+	custom: http_main,
+	CUSTOM: http_main,
 	delete: http_delete,
 	DELETE: http_delete,
 	head: http_head,
