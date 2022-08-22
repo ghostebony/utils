@@ -91,7 +91,10 @@ const http_main = async <Data, Error = unknown>(
 			accept: "application/json",
 			...options.headers,
 		},
-		body: typeof options.body === "object" ? JSON.stringify(options.body) : options.body,
+		body:
+			typeof options.body === "object" && !(options.body instanceof FormData)
+				? JSON.stringify(options.body)
+				: options.body,
 	});
 
 	const responseBody =
