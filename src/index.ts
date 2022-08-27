@@ -67,7 +67,7 @@ export enum statusCode {
 }
 
 const http_main = async <Data, Error = unknown>(
-	endpoint: string,
+	url: string,
 	options: Types.RequestOptions
 ) => {
 	if (!options.method) options.method = "GET";
@@ -77,15 +77,15 @@ const http_main = async <Data, Error = unknown>(
 	if (options.params) {
 		const params = new URLSearchParams(object.filter(options.params, undefined)).toString();
 
-		if (!!params) {
-			endpoint = `${endpoint}?${params}`;
+		if (params) {
+			url = `${url}?${params}`;
 		}
 	}
 
 	if (options.cookies)
 		options.headers = { ...options.headers, cookie: object.serialize(options.cookies) };
 
-	const response = await fetch(endpoint, {
+	const response = await fetch(url, {
 		method: options.method,
 		headers: {
 			accept: "application/json",
@@ -118,23 +118,23 @@ const http_main = async <Data, Error = unknown>(
 	};
 };
 
-const http_delete = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
-	http_main<Data, Error>(endpoint, { method: "DELETE", ...options });
+const http_delete = <Data, Error = unknown>(url: string, options?: Types.RequestOptions) =>
+	http_main<Data, Error>(url, { method: "DELETE", ...options });
 
-const http_head = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
-	http_main<Data, Error>(endpoint, { method: "HEAD", ...options });
+const http_head = <Data, Error = unknown>(url: string, options?: Types.RequestOptions) =>
+	http_main<Data, Error>(url, { method: "HEAD", ...options });
 
-const http_get = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
-	http_main<Data, Error>(endpoint, { method: "GET", ...options });
+const http_get = <Data, Error = unknown>(url: string, options?: Types.RequestOptions) =>
+	http_main<Data, Error>(url, { method: "GET", ...options });
 
-const http_patch = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
-	http_main<Data, Error>(endpoint, { method: "PATCH", ...options });
+const http_patch = <Data, Error = unknown>(url: string, options?: Types.RequestOptions) =>
+	http_main<Data, Error>(url, { method: "PATCH", ...options });
 
-const http_post = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
-	http_main<Data, Error>(endpoint, { method: "POST", ...options });
+const http_post = <Data, Error = unknown>(url: string, options?: Types.RequestOptions) =>
+	http_main<Data, Error>(url, { method: "POST", ...options });
 
-const http_put = <Data, Error = unknown>(endpoint: string, options?: Types.RequestOptions) =>
-	http_main<Data, Error>(endpoint, { method: "PUT", ...options });
+const http_put = <Data, Error = unknown>(url: string, options?: Types.RequestOptions) =>
+	http_main<Data, Error>(url, { method: "PUT", ...options });
 
 export const http = {
 	statusCode,
