@@ -66,10 +66,7 @@ export enum statusCode {
 	NETWORK_AUTHENTICATION_REQUIRED = 511,
 }
 
-const http_main = async <Data, Error = unknown>(
-	url: string,
-	options: Types.RequestOptions
-) => {
+const http_main = async <Data, Error = unknown>(url: string, options: Types.RequestOptions) => {
 	if (!options.method) options.method = "GET";
 
 	if (!options.response) options.response = "json";
