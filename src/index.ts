@@ -67,6 +67,8 @@ export enum statusCode {
 }
 
 const http_main = async <Data, Error = unknown>(url: string, options: Types.RequestOptions) => {
+	let body;
+
 	if (!options.method) options.method = "GET";
 
 	if (!options.response) options.response = "json";
@@ -82,16 +84,22 @@ const http_main = async <Data, Error = unknown>(url: string, options: Types.Requ
 	if (options.cookies)
 		options.headers = { ...options.headers, cookie: object.serialize(options.cookies) };
 
+	const isJSON = options.body?.toString() === "[object Object]";
+
+	if (isJSON) {
+		options.headers = { "content-type": "application/json", ...options.headers };
+		body = JSON.stringify(options.body);
+	} else {
+		body = options.body as BodyInit | null | undefined;
+	}
+
 	const response = await fetch(url, {
 		method: options.method,
 		headers: {
 			accept: "application/json",
 			...options.headers,
 		},
-		body:
-			typeof options.body === "object" && !(options.body instanceof FormData)
-				? JSON.stringify(options.body)
-				: options.body,
+		body,
 	});
 
 	const responseBody =
