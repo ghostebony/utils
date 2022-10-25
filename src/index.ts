@@ -8,7 +8,7 @@ export const object = {
 		}, {}),
 	isEmpty: (object: Record<string | number, any>) =>
 		Object.keys(object).length === 0 && object.constructor === Object,
-	serialize: (object: Record<string, string>, separator: string = "; ") => {
+	serialize: (object: Record<string, string | number | boolean>, separator: string = "; ") => {
 		const scs: string[] = [];
 		for (const name in object) scs.push(`${name}=${object[name]}`);
 		return scs.join(separator);
