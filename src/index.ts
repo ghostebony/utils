@@ -25,4 +25,14 @@ export const string = {
 		string.replace(/\{(.*?)\}/g, ($1, $2) => ($2 in data ? data[$2].toString() : $1)),
 };
 
-export default { object, string };
+export const array = {
+	chunk: <T>(array: Array<T>, size: number) => {
+		const result: Array<Array<T>> = [];
+		for (let i = 0; i < array.length; i += size) {
+			result.push(array.slice(i, i + size));
+		}
+		return result;
+	},
+};
+
+export default { array, object, string };
